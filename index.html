@@ -5,50 +5,11 @@
   <title>binding</title>
 </head>
 <body>
-  just testing how to do basic branch and merges with github
-  <input type="text" data-bind="scope.firstName.name" /> <!-- demonstrating nested properties work -->
-  <span contenteditable data-bind="scope.firstName.name"></span>
-  <div data-bind="scope.firstName.name" contenteditable>
-    
-  </div>
+  <input type="text" data-bind="scope1.firstName.name" /> <!-- demonstrating nested properties work -->
+  <span contenteditable data-bind="scope1.firstName.name"></span>
+  <div data-bind="scope1.firstName.name" contenteditable></div>
+  
   <script src="events.js"></script>
-  <script>
-    const scope = {
-      firstName: {
-        name: "Jacob"
-      }
-    };
-    
-    /*
-     * depends on events object (my simple pubsub implementation)
-     * also assumes the data model is on global scope for now (not sure if I'll change that)
-     */
-    
-    (function() {
-      const bindingElements = document.querySelectorAll('[data-bind]');
-      bindingElements.forEach( elm => {
-        elm.addEventListener('input', () => {
-          window[elm.dataset.bind] = elm.value || elm.innerText;
-          events.emit(elm.dataset.bind, elm);
-        })
-        events.on(elm.dataset.bind, function(elm) {
-          updateView(elm.dataset.bind, window[elm.dataset.bind], elm);
-        })
-      })
-      
-      function updateView(binding, ref, origin) {
-        const elements = document.querySelectorAll(`[data-bind="${binding}"]`);
-        elements.forEach( elm => {
-          if (elm.value && elm !== origin) {
-            elm.value = ref;
-          } else if (elm !== origin) {
-            elm.innerHTML = ref;
-          }
-        })
-      }
-    })();
-    
-    
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

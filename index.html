@@ -13,29 +13,8 @@
     there are {{x.qty}} {{x.name}} donuts left
   </h1>
   
-  <script>
-    const scope = {
-      donuts: [{
-        name:"glazed",
-        qty: 5
-      }, {
-        name: "sprinkled",
-        qty: 3
-      }, {
-        name: "cream filled",
-        qty: 2
-      }]
-    }
-    
-    const repeat = document.querySelector('[data-repeat]');
-    scope.donuts.forEach( donut => {
-//       const newDonut = repeat.outerHTML.replace('{{x}}', donut);
-//       repeat.insertAdjacentHTML('afterend', newDonut);
-    });
-    repeat.parentNode.removeChild(repeat);
-  </script>
-  
+  <script src="templater.js"></script>
   <script src="events.js"></script>
-  <script src="script.js"></script>
+  <script src="binder.js"></script>
 </body>
 </html>

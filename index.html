@@ -9,6 +9,23 @@
   <span contenteditable data-bind="scope1.firstName.name"></span>
   <div data-bind="scope1.firstName.name" contenteditable></div>
   
+  <h1 data-repeat="scope.donuts">
+    testing: {{x}}, 1, 2, 3
+  </h1>
+  
+  <script>
+    const scope = {
+      donuts: ["glazed", "sprinkles", "cream filled"]
+    }
+    
+    const repeat = document.querySelector('[data-repeat]');
+    scope.donuts.forEach( donut => {
+      const newDonut = repeat.outerHTML.replace('{{x}}', donut);
+      repeat.insertAdjacentHTML('afterend', newDonut);
+    });
+    repeat.parentNode.removeChild(repeat);
+  </script>
+  
   <script src="events.js"></script>
   <script src="script.js"></script>
 </body>

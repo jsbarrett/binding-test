@@ -9,11 +9,13 @@ const binder = function(scope) {
   const bindingElements = document.querySelectorAll('[data-bind]');
   bindingElements.forEach( elm => {
     elm.addEventListener('input', () => {
-      scope[elm.dataset.bind] = elm.value || elm.innerText;
+      let ref = get(scope, elm.dataset.bind.split('.'));
+      ref[0] = elm.value || elm.innerText;
+
       events.emit(elm.dataset.bind, elm);
     });
     events.on(elm.dataset.bind, function(elm) {
-      updateView(elm.dataset.bind, scope[elm.dataset.bind], elm);
+      updateView(elm.dataset.bind, get(scope, elm.dataset.bind.split('.')), elm);
     });
   });
 
@@ -21,22 +23,20 @@ const binder = function(scope) {
     const elements = document.querySelectorAll(`[data-bind="${binding}"]`);
     elements.forEach( elm => {
       if (elm.value && elm !== origin) {
-        elm.value = ref;
+        elm.value = ref[0];
       } else if (elm !== origin) {
-        elm.innerHTML = ref;
+        elm.innerHTML = ref[0];
       }
     });
   }
-};
-
-// wrapped in IIFE to show your scope doesn't have to be in the global scope anymore
-(function() {
-  const app = {
-    scope1: {
-      firstName: {
-        name: "Jacob"
-      }
+  
+  // helper function for diving into nested objects
+  function get(scope, properties) {
+    let nested = scope;
+    for (let i=0; i<properties.length; i+=1) {
+      nested = nested[properties[i]];
     }
-  };
-  binder(app);
-})();
+    // returns the reference to the nested object property on the scope
+    return nested;
+  }
+};

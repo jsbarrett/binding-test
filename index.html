@@ -9,7 +9,66 @@
   <span contenteditable data-bind="scope1.firstName.name"></span>
   <div data-bind="scope1.firstName.name" contenteditable></div>
   
+  <h1 data-repeat="scope.donuts">
+    there are {{x.qty}} {{x.butt}} donuts left
+  </h1>
+  
+  <h2 data-repeat="chicken">
+    there are {{x.quantity}} {{x.type}} leftover to eat
+  </h2>
+  
+  <ul>
+    <li data-repeat="chicken">{{x.type}}</li>
+  </ul>
+  
+  <script src="templater.js"></script>
   <script src="events.js"></script>
-  <script src="script.js"></script>
+  <script src="binder.js"></script>
+  
+  <script>
+    (function() {
+      const app = {
+        scope: {
+          donuts: [{
+            butt:"glazed",
+            qty: 5
+          }, {
+            butt: "sprinkled",
+            qty: 3
+          }, {
+            butt: "cream filled",
+            qty: 2
+          }, {
+            butt: "iced",
+            qty: 1
+          }]
+        },
+        chicken: [{
+          quantity: 10,
+          type: "wings"
+        }, {
+          quantity: 20,
+          type: "legs"
+        }]
+      };
+
+      templater(app);
+    })();
+    
+    // wrapped in IIFE to show your scope doesn't have to be in the global scope anymore
+    (function() {
+      const app = {
+        scope1: {
+          firstName: {
+            // currently have to wrap value in an array
+            // hack to be able to allow my function to pass a reference around
+            name: ["Jacob"]
+          }
+        }
+      };
+      binder(app);
+    })();
+    
+  </script>
 </body>
 </html>

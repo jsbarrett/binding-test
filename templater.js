@@ -1,6 +1,7 @@
 const templater = function(rootscope) {
   // grab elements with the repeat attribute and iterate over them
   const repeat = document.querySelectorAll('[data-repeat]');
+  
   repeat.forEach( elm => {
     // the data-repeat attribute will take an array reference or an object with an array as a property
     // example: ["jacob", "steve"]
@@ -48,24 +49,3 @@ const templater = function(rootscope) {
   }
 };
 
-(function() {
-  const app = {
-    scope: {
-      donuts: [{
-        name:"glazed",
-        qty: 5
-      }, {
-        name: "sprinkled",
-        qty: 3
-      }, {
-        name: "cream filled",
-        qty: 2
-      }, {
-        name: "iced",
-        qty: 1
-      }]
-    }
-  };
-  
-  templater(app);
-})();

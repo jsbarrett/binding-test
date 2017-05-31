@@ -10,7 +10,7 @@
   <div data-bind="scope1.firstName.name" contenteditable></div>
   
   <h1 data-repeat="scope.donuts">
-    there are {{x.qty}} {{x.butt}} donuts left
+    there are {{x.qty}} {{x.type}} donuts left
   </h1>
   
   <h2 data-repeat="chicken">
@@ -34,16 +34,16 @@
       const app = {
         scope: {
           donuts: [{
-            butt:"glazed",
+            type:"glazed",
             qty: 5
           }, {
-            butt: "sprinkled",
+            type: "sprinkled",
             qty: 3
           }, {
-            butt: "cream filled",
+            type: "cream filled",
             qty: 2
           }, {
-            butt: "iced",
+            type: "iced",
             qty: 1
           }]
         },
